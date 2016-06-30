@@ -21,7 +21,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-		int k = 4;
+		int k = 7;
 		//abertura do arquivo
 		BufferedReader reader =
 				   new BufferedReader(new FileReader("BeaNbea.arff"));
@@ -40,7 +40,7 @@ public class Main {
 		Attribute a = data.classAttribute();
 		String enumeracaoClasse = a.toString();
 		//separação das classes
-		String[] classesAtuais = separaClasse(enumeracaoClasse);
+		String[] classesAtuais = Utils.separaClasse(enumeracaoClasse);
 		
 		//System.in.read();
 		
@@ -69,7 +69,7 @@ public class Main {
 		for(int i=0;i<tamanhoLinhas;i++){
 			x[i] = data.instance(i).toString();
 		}
-		embaralhar(x); //metodo que embaralha a base
+		Utils.embaralhar(x); //metodo que embaralha a base
 		
 		tamanhoColunas = x[1].split(",").length;
 		double [][] base = new double[tamanhoLinhas][tamanhoColunas];
@@ -209,22 +209,6 @@ public class Main {
 	}
 	
 
-	public static void embaralhar(String[] emb){
-	    Random ran = new Random();
-	    
-	    for(int i = 0; i < emb.length; i++){
-	      int pos = ran.nextInt(emb.length);
-	      String temp = emb[i];
-	      emb[i] = emb[pos];
-	      emb[pos] = temp;
-	    }
-	  }
-	public static String[] separaClasse(String enumeracaoClasse){
-		StringTokenizer aux = new StringTokenizer(enumeracaoClasse, "{}");
-		aux.nextToken();
-		String semPontos = aux.nextToken();
-		String[] classesAtuais = semPontos.split(",");
-		return classesAtuais;
-	}
+	
 
 }
