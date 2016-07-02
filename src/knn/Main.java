@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
-import java.util.StringTokenizer;
 
 import weka.core.Attribute;
 import weka.core.Instance;
@@ -13,18 +11,12 @@ import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 public class Main {
 
-	private static final Object[] String = null;
-
-
-
-
-
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-		int k = 7;
+		int k = 19;
 		//abertura do arquivo
 		BufferedReader reader =
-				   new BufferedReader(new FileReader("BeaNbea.arff"));
+				   new BufferedReader(new FileReader("BoBoM.arff"));
 		ArffReader arff = new ArffReader(reader, 1000);
 		
 		Instances data = arff.getStructure();
@@ -47,8 +39,8 @@ public class Main {
 		int tamanhoLinhas = data.numInstances();
 		String[] x = new String[tamanhoLinhas];
 		int tamanhoColunas;
-		int acertos = 0;
-		int erros = 0;
+		int acertosEucli = 0;
+		int acertosMan = 0;
 		int tamTeste = 0;// = tamanhoLinhas/3;
 		int tamTreino = 0;//= 2*tamTeste;
 		
@@ -76,8 +68,10 @@ public class Main {
 		int[] vetorDeClassificacoes = new int[nrClasses];
 		
 		for(int i=0;i<tamanhoLinhas;i++){
-			String []particao = x[i].split(","); // quebra a string cada vez que encontrar um espaco 
-			double[] split = new double[particao.length];//criar um vetor com o tamanhoLinhasLinhas da quantidade de elementos			
+			// quebra a string cada vez que encontrar um espaco
+			String []particao = x[i].split(",");  
+			//criar um vetor com o tamanhoLinhasLinhas da quantidade de elementos
+			double[] split = new double[particao.length];			
 			//converter todas as classes em binario
 			for(int j = 0; j < split.length; j++){
 				for(int u = 0;u<nrClasses;u++){
@@ -96,7 +90,8 @@ public class Main {
 		}
 		
 		double []copia = new double[tamanhoLinhas];
-		//copiar todo vetor de base para conseguir definir os maiores valores, fazendo normalização por coluna
+		//copiar todo vetor de base para conseguir definir os maiores valores, fazendo 
+		//normalização por coluna
 		for(int i = 0; i <tamanhoColunas-1;i++){
 			for (int j = 0; j < tamanhoLinhas;j++){
 				copia[j] = base[j][i];
@@ -136,77 +131,41 @@ public class Main {
 		}
 		//calcular distancia
 		double[] euclidiana = new double[tamTreino];
-		double[] classe = new double[tamTreino]; 
-		double total = 0.0;
+		double[] classeEucli = new double[tamTreino]; 
+		double[] manhatan = new double[tamTreino];
+		double[] classeMan = new double[tamTreino];
+	
+		MatrizConfusão.contadorZeroZero = 0;
+		MatrizConfusão.contadorZeroUm = 0;
+		MatrizConfusão.contadorZeroDois = 0;
 		
-		//calcular as distancias pegando cada valor de teste e comparando com todos valores de treino
+		MatrizConfusão.contadorUmZero = 0;
+		MatrizConfusão.contadorUmUm = 0;
+		MatrizConfusão.contadorUmDois = 0;
+
+		MatrizConfusão.contadorDoisZero = 0;
+		MatrizConfusão.contadorDoisUm = 0;
+		MatrizConfusão.contadorDoisDois = 0;
+
+		Euclidiana.euclidiana(tamTeste, tamTreino, euclidiana, classeEucli, tamanhoColunas,
+				treino, teste, nrClasses, vetorDeClassificacoes, k, acertosEucli, tamanhoLinhas);
 		
-		for(int i = 0;i<tamTeste;i++)
-		{
-			for(int j = 0;j<tamTreino;j++){
-				double somaDeAtributos = 0;
-				for(int l = 0;l<tamanhoColunas-1;l++){
-					somaDeAtributos = somaDeAtributos + (Math.pow(teste[i][l]-treino[j][l], 2));
-				}
-				euclidiana[j] = Math.sqrt(somaDeAtributos);
-				classe[j] = treino[j][tamanhoColunas-1];
-			}
-			
-			//ordenação pela menor distancia
-			for(int b=(tamTreino-1); b >= 1; b--)
-			{
-				for(int c = 0;c<b;c++){
-					if(euclidiana[c] > euclidiana[c+1]){
-						double aux1 = euclidiana[c];
-						double aux2 = classe[c];
-						euclidiana[c] = euclidiana[c+1];
-						classe[c] = classe[c+1];
-						euclidiana[c+1] = aux1;
-						classe[c+1] = aux2;
-					}
-				}
-				
-			}
-			
-			//k menores distancias
-			System.out.println(i+1);
-			
-			
-			int[] vetorArmazenamento = new int[nrClasses];
-			for(int zero = 0;zero<nrClasses;zero++){
-				vetorArmazenamento[zero] = 0;
-			}
-			for(int n = 0;n<k;n++){
-				//total = total + classe[n];
-				for(int m = 0;m<nrClasses;m++){
-					if(classe[n]== vetorDeClassificacoes[m]){
-						vetorArmazenamento[m]++;
-					}
-				}
-				System.out.println(euclidiana[n]+","+classe[n]);
-			}
-			total = total/k;
-			
-			
-			int classification = 0; //inicializar com um valor qualquer
-			for (int y = 1; y < nrClasses; y++){
-				   int newnumber = vetorArmazenamento[y];
-				   if ((newnumber > vetorArmazenamento[classification])){
-				   classification = y;
-				  }
-			}
-			
-		    System.out.println((double)classification + "\n\n");
-		    
-		    if(Double.compare(teste[i][tamanhoColunas-1], (double)classification) == 0){
-		    		acertos++;
-		    	}
-		    	
+
+		MatrizConfusão.contadorZeroZero = 0;
+		MatrizConfusão.contadorZeroUm = 0;
+		MatrizConfusão.contadorZeroDois = 0;
+		
+		MatrizConfusão.contadorUmZero = 0;
+		MatrizConfusão.contadorUmUm = 0;
+		MatrizConfusão.contadorUmDois = 0;
+
+		MatrizConfusão.contadorDoisZero = 0;
+		MatrizConfusão.contadorDoisUm = 0;
+		MatrizConfusão.contadorDoisDois = 0;
+		
+		Manhattan.manhattan(tamTeste, tamTreino, manhatan, classeMan, tamanhoColunas, 
+				treino, teste, nrClasses, vetorDeClassificacoes, k, acertosMan, tamanhoLinhas);
 		}
-		double taxa = ( (100.0*acertos) / (tamanhoLinhas/3.0));
-		System.out.println(taxa + "% de acerto, total de acertos: " + acertos +" de " + tamanhoLinhas/3 + " para todo k = "+ k);
-		
-	}
 	
 
 	
