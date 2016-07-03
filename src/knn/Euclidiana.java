@@ -9,10 +9,10 @@ public class Euclidiana {
 			{
 				for(int j = 0;j<tamTreino;j++){
 					double somaDeAtributosEuc = 0;
-					double somaDeAtributosMan = 0;
+					//double somaDeAtributosMan = 0;
 					for(int l = 0;l<tamanhoColunas-1;l++){
 						somaDeAtributosEuc= somaDeAtributosEuc + (Math.pow(teste[i][l]-treino[j][l], 2));
-						somaDeAtributosMan = somaDeAtributosMan + (Math.sqrt(Math.pow(teste[i][l]-treino[j][l], 2)));
+						//somaDeAtributosMan = somaDeAtributosMan + (Math.sqrt(Math.pow(teste[i][l]-treino[j][l], 2)));
 					}
 					euclidiana[j] = Math.sqrt(somaDeAtributosEuc);
 					classeEucli[j] = treino[j][tamanhoColunas-1];

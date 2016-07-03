@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-		int k = 19;
+		int k = 7;
 		//abertura do arquivo
 		BufferedReader reader =
 				   new BufferedReader(new FileReader("BoBoM.arff"));
@@ -41,6 +41,8 @@ public class Main {
 		int tamanhoColunas;
 		int acertosEucli = 0;
 		int acertosMan = 0;
+		int acertosBray = 0;
+		int acertosChi = 0;
 		int tamTeste = 0;// = tamanhoLinhas/3;
 		int tamTreino = 0;//= 2*tamTeste;
 		
@@ -131,9 +133,17 @@ public class Main {
 		}
 		//calcular distancia
 		double[] euclidiana = new double[tamTreino];
-		double[] classeEucli = new double[tamTreino]; 
+		double[] classeEucli = new double[tamTreino];
+		
+		double[] brayCurtis = new double[tamTreino];
+		double[] classeBray = new double[tamTreino];
+		
 		double[] manhatan = new double[tamTreino];
 		double[] classeMan = new double[tamTreino];
+		
+		double[] chiSquare = new double[tamTreino];
+		double[] classeChi = new double[tamTreino];
+		
 	
 		MatrizConfusão.contadorZeroZero = 0;
 		MatrizConfusão.contadorZeroUm = 0;
@@ -165,7 +175,39 @@ public class Main {
 		
 		Manhattan.manhattan(tamTeste, tamTreino, manhatan, classeMan, tamanhoColunas, 
 				treino, teste, nrClasses, vetorDeClassificacoes, k, acertosMan, tamanhoLinhas);
+		
+		MatrizConfusão.contadorZeroZero = 0;
+		MatrizConfusão.contadorZeroUm = 0;
+		MatrizConfusão.contadorZeroDois = 0;
+		
+		MatrizConfusão.contadorUmZero = 0;
+		MatrizConfusão.contadorUmUm = 0;
+		MatrizConfusão.contadorUmDois = 0;
+
+		MatrizConfusão.contadorDoisZero = 0;
+		MatrizConfusão.contadorDoisUm = 0;
+		MatrizConfusão.contadorDoisDois = 0;
+		
+		BrayCurtis.brayCurtis(tamTeste, tamTreino, brayCurtis, classeBray, tamanhoColunas,
+				treino, teste, nrClasses, vetorDeClassificacoes, k, acertosBray, tamanhoLinhas);
+		
+		
+		MatrizConfusão.contadorZeroZero = 0;
+		MatrizConfusão.contadorZeroUm = 0;
+		MatrizConfusão.contadorZeroDois = 0;
+		
+		MatrizConfusão.contadorUmZero = 0;
+		MatrizConfusão.contadorUmUm = 0;
+		MatrizConfusão.contadorUmDois = 0;
+
+		MatrizConfusão.contadorDoisZero = 0;
+		MatrizConfusão.contadorDoisUm = 0;
+		MatrizConfusão.contadorDoisDois = 0;
+		
+		ChiSquare.chiSquare(tamTeste, tamTreino, chiSquare, classeChi, tamanhoColunas, treino, teste, nrClasses, vetorDeClassificacoes, k, acertosChi, tamanhoLinhas);
+		
 		}
+		
 	
 
 	
