@@ -1,9 +1,11 @@
 package knn;
 
+import java.io.IOException;
+
 public class BrayCurtis {
 	public static void brayCurtis(int tamTeste, int tamTreino, double[] brayCurtis,
  			double[] classeBray, int tamanhoColunas, double[][] treino, double[][] teste,
- 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosBray, int tamanhoLinhas){
+ 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosBray, int tamanhoLinhas) throws IOException{
 		
 		
 		for(int i = 0;i<tamTeste;i++)
@@ -71,9 +73,12 @@ public class BrayCurtis {
 		   
 		}
 		double taxaEuc = ((100.0*acertosBray) / (tamanhoLinhas/3.0));
-		System.out.println(taxaEuc + "% de acerto, total de acertos: " + acertosBray +
+		String dados = taxaEuc + "% de acerto, total de acertos: " + acertosBray +
 				" de " + tamanhoLinhas/3 + " para k = "+ k + 
-				" Usando distancia de Bray Curtis\n\n");
+				" Usando distancia de Bray Curtis\n\n";
+		
+		System.out.println(dados);
+		GerarRelatorio.salvarArquivo(dados);
 		
 		System.out.println("Matriz de Confusão:");
 		System.out.println(MatrizConfusão.contadorZeroZero + "\t" + 

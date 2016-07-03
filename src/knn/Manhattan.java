@@ -1,9 +1,11 @@
 package knn;
 
+import java.io.IOException;
+
 public class Manhattan {
 		 public static void manhattan(int tamTeste, int tamTreino, double[] manhatan,
 				 			double[] classeMan, int tamanhoColunas, double[][] treino, double[][] teste,
-				 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosMan, int tamanhoLinhas){
+				 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosMan, int tamanhoLinhas) throws IOException{
 			 
 			 for(int i = 0;i<tamTeste;i++)
 				{
@@ -79,10 +81,12 @@ public class Manhattan {
 				}
 				
 				double taxaMan = ((100.0*acertosMan) / (tamanhoLinhas/3.0));
-
-				System.out.println(taxaMan + "% de acerto, total de acertos: " + acertosMan +
-									" de " + tamanhoLinhas/3 + " para k = " + k +
-									" Usando distancia de Manhatan\n\n");
+				String dados = taxaMan + "% de acerto, total de acertos: " + acertosMan +
+						" de " + tamanhoLinhas/3 + " para k = " + k +
+						" Usando distancia de Manhatan\n\n";
+				System.out.println(dados);
+				
+				GerarRelatorio.salvarArquivo(dados);
 				
 				System.out.println("Matriz de Confusão:");
 				

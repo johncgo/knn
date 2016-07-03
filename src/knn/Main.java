@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-		int k = 7;
+		int k = 1;
 		//abertura do arquivo
 		BufferedReader reader =
 				   new BufferedReader(new FileReader("BoBoM.arff"));
