@@ -76,6 +76,7 @@ public class Euclidiana {
 					" de " + tamanhoLinhas/3 + " para k = "+ k + 
 					" Usando distancia euclidiana\n\n");
 			
+			System.out.println("Matriz de Confusão:");
 			
 			System.out.println(MatrizConfusão.contadorZeroZero + "\t" + 
 								MatrizConfusão.contadorZeroUm + "\t" +

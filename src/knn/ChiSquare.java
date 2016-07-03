@@ -78,7 +78,7 @@ public class ChiSquare {
 				" de " + tamanhoLinhas/3 + " para k = "+ k + 
 				" Usando distancia de Chi Square\n\n");
 		
-		
+		System.out.println("Matriz de Confusão:");
 		System.out.println(MatrizConfusão.contadorZeroZero + "\t" + 
 							MatrizConfusão.contadorZeroUm + "\t" +
 							MatrizConfusão.contadorZeroDois);
