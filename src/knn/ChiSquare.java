@@ -3,6 +3,7 @@ package knn;
 import java.io.IOException;
 
 public class ChiSquare {
+	private static String dados;
 	public static void chiSquare(int tamTeste, int tamTreino, double[] chiSquare,
  			double[] classeChi, int tamanhoColunas, double[][] treino, double[][] teste,
  			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosChi, int tamanhoLinhas) throws IOException{
@@ -76,12 +77,11 @@ public class ChiSquare {
 		   
 		}
 		double taxaEuc = ((100.0*acertosChi) / (tamanhoLinhas/3.0));
-		String dados = taxaEuc + "% de acerto, total de acertos: " + acertosChi +
-				" de " + tamanhoLinhas/3 + " para k = "+ k + 
+		dados = taxaEuc + "% de acerto, total de acertos: " + acertosChi +
+				" de " + tamanhoLinhas/3.0 + " para k = "+ k + 
 				" Usando distancia de Chi Square\n\n";
 		System.out.println(dados);
 		
-		GerarRelatorio.salvarArquivo(dados);
 		
 		System.out.println("Matriz de Confusão:");
 		System.out.println(MatrizConfusão.contadorZeroZero + "\t" + 
@@ -97,5 +97,11 @@ public class ChiSquare {
 				MatrizConfusão.contadorDoisDois);
 
 
+	}
+	static String getDados() {
+		return dados;
+	}
+	private static void setDados(String dados) {
+		ChiSquare.dados = dados;
 	}
 }

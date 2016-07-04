@@ -3,6 +3,7 @@ package knn;
 import java.io.IOException;
 
 public class TopsoeDivergence {
+	private static String dados;
 	public static void topsoeDivergence(int tamTeste, int tamTreino, double[] topsoeDivergence,
 			double[] classeTop, int tamanhoColunas, double[][] treino, double[][] teste,
 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosTop, int tamanhoLinhas) throws IOException{
@@ -78,13 +79,13 @@ public class TopsoeDivergence {
 			}
 
 		}
+		 
 		double taxaEuc = ((100.0*acertosTop) / (tamanhoLinhas/3.0));
-		String dados = taxaEuc + "% de acerto, total de acertos: " + acertosTop +
-				" de " + tamanhoLinhas/3 + " para k = "+ k + 
+		dados = taxaEuc + "% de acerto, total de acertos: " + acertosTop +
+				" de " + tamanhoLinhas/3.0 + " para k = "+ k + 
 				" Usando distancia de Topsoe Divergence\n\n";
 		System.out.println(dados);
 
-		GerarRelatorio.salvarArquivo(dados);
 		
 		System.out.println("Matriz de Confusão:");	
 		System.out.println(MatrizConfusão.contadorZeroZero + "\t" + 
@@ -99,5 +100,11 @@ public class TopsoeDivergence {
 				MatrizConfusão.contadorDoisUm + "\t" +
 				MatrizConfusão.contadorDoisDois);
 
+	}
+	static String getDados() {
+		return dados;
+	}
+	private static void setDados(String dados) {
+		TopsoeDivergence.dados = dados;
 	}
 }

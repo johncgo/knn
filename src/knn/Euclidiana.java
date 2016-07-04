@@ -3,6 +3,7 @@ package knn;
 import java.io.IOException;
 
 public class Euclidiana {
+	private static String dados;
 	 public static void euclidiana(int tamTeste, int tamTreino, double[] euclidiana,
 			 			double[] classeEucli, int tamanhoColunas, double[][] treino, double[][] teste,
 			 			int nrClasses, int[] vetorDeClassificacoes, int k, int acertosEucli, int tamanhoLinhas) throws IOException{
@@ -73,13 +74,13 @@ public class Euclidiana {
 			    	}
 			   
 			}
+		 	
 			double taxaEuc = ((100.0*acertosEucli) / (tamanhoLinhas/3.0));
-			String dados = taxaEuc + "% de acerto, total de acertos: " + acertosEucli +
-					" de " + tamanhoLinhas/3 + " para k = "+ k + 
+			dados = taxaEuc + "% de acerto, total de acertos: " + acertosEucli +
+					" de " + tamanhoLinhas/3.0 + " para k = "+ k + 
 					" Usando distancia euclidiana\n\n";
 			System.out.println(dados);
 			
-			GerarRelatorio.salvarArquivo(dados);
 			
 			System.out.println("Matriz de Confusão:");
 			
@@ -95,4 +96,10 @@ public class Euclidiana {
 					MatrizConfusão.contadorDoisUm + "\t" +
 					MatrizConfusão.contadorDoisDois);
 	 }
+	static String getDados() {
+		return dados;
+	}
+	private static void setDados(String dados) {
+		Euclidiana.dados = dados;
+	}
 }

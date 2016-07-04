@@ -223,6 +223,11 @@ public class Main {
 		
 		TopsoeDivergence.topsoeDivergence(tamTeste, tamTreino, topsoeDivergence, classeTop, tamanhoColunas, treino, teste, nrClasses, vetorDeClassificacoes, k, acertosTop, tamanhoLinhas);
 		
+		String dados = Manhattan.getDados() + " " + Euclidiana.getDados() + " " +
+						BrayCurtis.getDados() + " " + ChiSquare.getDados() + " " +
+						TopsoeDivergence.getDados();
+		GerarRelatorio.salvarArquivo(dados);
+		
 		}
 		
 	
